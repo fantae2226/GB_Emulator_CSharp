@@ -8,7 +8,7 @@ namespace GB_Emulator_CSharp.interfaces{
     public interface IEmulator{
     
 
-        public int EmuRun(int argc, string[] argv);
+        public int EmuRun(string[] args);
 
         public Emu_context EmuGetContext();
     }

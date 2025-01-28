@@ -16,7 +16,7 @@ namespace GB_Emulator_CSharp.lib{
     public class CartLoader : ICartLoader
     {
 
-        static Cart_context? ctx;
+        static Cart_context ctx = new();
 
         public static readonly string[] ROM_TYPES = [ 
             "ROM ONLY",
@@ -196,20 +196,28 @@ namespace GB_Emulator_CSharp.lib{
             }
 
             Console.WriteLine("Cartridge Loaded");
-            Console.WriteLine($"Title: {ctx.RomHeader.Title}");
+            string romTitle = new string(ctx.RomHeader.Title).Trim('\0');
+            Console.WriteLine($"Title: {romTitle}");
             Console.WriteLine($"Type: {ctx.RomHeader.Type} ({cart_type_name()})");
             Console.WriteLine($"ROM Size: {32 << ctx.RomHeader.RomSize} KB");
             Console.WriteLine($"RAM Size: {ctx.RomHeader.RamSize}");
             Console.WriteLine($"LIC Code: {ctx.RomHeader.LicCode} ({cart_lic_name()})");
             Console.WriteLine($"ROM Vers: {ctx.RomHeader.Version}");
 
-            ushort sum = 0;
+            byte sum = 0;
 
-            for(ushort i = 0x0134; i <= 0x014C; i++){
-                sum = (ushort)(sum - ctx.RomData[i] - 1);
+            for(int i = 0x0134; i <= 0x014C; i++){
+                sum = (byte)((sum + ctx.RomData[i]) & 0xFF);
             }
 
-            Console.WriteLine($"Checksum: {ctx.RomHeader.Checksum} ( {((sum & 0xFF) == 0 ? "Passed" : "Failed")} )");
+            byte calculatedSum = (byte)((0xFF - sum) & 0xFF);
+
+            Console.WriteLine($"Checksum: {ctx.RomHeader.Checksum} ( {((ctx.RomHeader.Checksum == calculatedSum) ? "Passed" : "Failed")} )");
+
+            Console.WriteLine($"Header Data: {BitConverter.ToString(ctx.RomData, 0x0134, 0x014C - 0x0134 + 1)}");
+            Console.WriteLine($"ROM Data Size: {ctx.RomData.Length} bytes");
+
+
 
             return true;
 

@@ -1,4 +1,6 @@
 using GB_Emulator_CSharp.interfaces;
+using SFML.Graphics;
+using SFML.Window;
 
 namespace GB_Emulator_CSharp.lib{
     /* 
@@ -15,7 +17,7 @@ namespace GB_Emulator_CSharp.lib{
     public class Emulator : IEmulator
     {
 
-        static Emu_context? ctx;
+        static Emu_context ctx = new Emu_context();
         static CartLoader cartLoader = new();
         static Cpu cpuLoader = new(); 
 
@@ -30,21 +32,25 @@ namespace GB_Emulator_CSharp.lib{
             Thread.Sleep((int)ms);
         }
 
-        public int EmuRun(int argc, string[] argv)
+        public int EmuRun(string[] args)
         {
-            if (argc < 2){
+            if (args.Length < 1){ //check later
                 Console.WriteLine("Usage: Emu <rom_file>");
                 return -1;
             }
 
-            if (!cartLoader.CartLoad(argv[1])){
-                Console.WriteLine($"Failed to load ROM file: {argv[1]}");
+            if (!cartLoader.CartLoad(args[0])){
+                Console.WriteLine($"Failed to load ROM file: {args[0]}");
                 return -2;
             }
 
             Console.WriteLine("Cart loaded...");
 
             //SDL Graphics replacement
+
+            RenderWindow window = new RenderWindow(new VideoMode(800,600), "GB Emulator");
+            window.Closed += (sender, e) => ctx.Running = false;
+
             Console.WriteLine("Graphics Init...");
 
             //TTF replacement
@@ -59,6 +65,9 @@ namespace GB_Emulator_CSharp.lib{
             ctx.Ticks = 0;
 
             while(ctx.Running){
+
+                window.DispatchEvents(); //handle window events
+
                 if(ctx.Paused){
                     delay(10);
                     continue;
