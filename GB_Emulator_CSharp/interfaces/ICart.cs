@@ -25,7 +25,7 @@ namespace GB_Emulator_CSharp.interfaces{
     }
 }
 
-    public interface CartLoader{
+    public interface ICartLoader{
         public bool CartLoad(string cart);
     }
 }

@@ -1,5 +1,4 @@
 using GB_Emulator_CSharp.interfaces;
-using GB_Emulator_CSharp.lib;
 
 namespace GB_Emulator_CSharp.lib{
     /* 
@@ -53,6 +52,7 @@ namespace GB_Emulator_CSharp.lib{
 
 
             cpuLoader.cpu_init();
+
 
             ctx.Running = true;
             ctx.Paused = false;
