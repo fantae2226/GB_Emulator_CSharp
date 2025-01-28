@@ -180,16 +180,16 @@ namespace GB_Emulator_CSharp.lib{
                 Array.Copy(ctx.RomData, 0x0134, ctx.RomHeader.Title, 0, 16);
 
                  // Set primitive data types from the appropriate offsets
-                ctx.RomHeader.NewLicCode = BitConverter.ToUInt16(ctx.RomData, 0x013C); // NewLicCode (2 bytes)
-                ctx.RomHeader.SgbFlag = ctx.RomData[0x013E]; // SgbFlag (1 byte)
-                ctx.RomHeader.Type = ctx.RomData[0x013F]; // Type (1 byte)
-                ctx.RomHeader.RomSize = ctx.RomData[0x0140]; // RomSize (1 byte)
-                ctx.RomHeader.RamSize = ctx.RomData[0x0141]; // RamSize (1 byte)
-                ctx.RomHeader.DestCode = ctx.RomData[0x0142]; // DestCode (1 byte)
-                ctx.RomHeader.LicCode = ctx.RomData[0x0143]; // LicCode (1 byte)
-                ctx.RomHeader.Version = ctx.RomData[0x0144]; // Version (1 byte)
-                ctx.RomHeader.Checksum = ctx.RomData[0x0145]; // Checksum (1 byte)
-                ctx.RomHeader.GlobalChecksum = BitConverter.ToUInt16(ctx.RomData, 0x0146); // GlobalChecksum (2 bytes)
+                ctx.RomHeader.NewLicCode = BitConverter.ToUInt16(ctx.RomData, 0x0144); // NewLicCode (2 bytes)
+                ctx.RomHeader.SgbFlag = ctx.RomData[0x0146]; // SgbFlag (1 byte)
+                ctx.RomHeader.Type = ctx.RomData[0x0147]; // Type (1 byte)
+                ctx.RomHeader.RomSize = ctx.RomData[0x0148]; // RomSize (1 byte)
+                ctx.RomHeader.RamSize = ctx.RomData[0x0149]; // RamSize (1 byte)
+                ctx.RomHeader.DestCode = ctx.RomData[0x014A]; // DestCode (1 byte)
+                ctx.RomHeader.LicCode = ctx.RomData[0x014B]; // LicCode (1 byte)
+                ctx.RomHeader.Version = ctx.RomData[0x014C]; // Version (1 byte)
+                ctx.RomHeader.Checksum = ctx.RomData[0x014D]; // Checksum (1 byte)
+                ctx.RomHeader.GlobalChecksum = BitConverter.ToUInt16(ctx.RomData, 0x014E); // GlobalChecksum (2 bytes)
 
                 ctx.RomHeader.Title[15] = '\0';
 
@@ -206,16 +206,20 @@ namespace GB_Emulator_CSharp.lib{
 
             byte sum = 0;
 
-            for(int i = 0x0134; i <= 0x014C; i++){
-                sum = (byte)((sum + ctx.RomData[i]) & 0xFF);
+            for(ushort i = 0x0134; i <= 0x014C; i++){
+                sum = (byte)(sum - ctx.RomData[i] - 1);
             }
 
-            byte calculatedSum = (byte)((0xFF - sum) & 0xFF);
+            // byte calculatedSum = (byte)((0xFF - sum) & 0xFF);
 
-            Console.WriteLine($"Checksum: {ctx.RomHeader.Checksum} ( {((ctx.RomHeader.Checksum == calculatedSum) ? "Passed" : "Failed")} )");
+            Console.WriteLine($"Checksum: {ctx.RomHeader.Checksum} ( {((ctx.RomHeader.Checksum == sum) ? "Passed" : "Failed")} )");
 
             Console.WriteLine($"Header Data: {BitConverter.ToString(ctx.RomData, 0x0134, 0x014C - 0x0134 + 1)}");
             Console.WriteLine($"ROM Data Size: {ctx.RomData.Length} bytes");
+
+            Console.WriteLine($"Stored Checksum: {ctx.RomHeader.Checksum}");
+            Console.WriteLine($"Calculated Checksum: {sum}");
+
 
 
 
