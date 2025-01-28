@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "KU1U3hIPSBA=",
+  "dgSpecHash": "yrfPE9zWozQ=",
   "success": true,
   "projectFilePath": "C:\\Projects\\GB_Emulator_CSharp\\GB_Emulator_CSharp\\GB_Emulator_CSharp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\eben2\\.nuget\\packages\\csfml\\2.6.1\\csfml.2.6.1.nupkg.sha512",
+    "C:\\Users\\eben2\\.nuget\\packages\\sfml.audio\\2.6.0\\sfml.audio.2.6.0.nupkg.sha512",
+    "C:\\Users\\eben2\\.nuget\\packages\\sfml.graphics\\2.6.0\\sfml.graphics.2.6.0.nupkg.sha512",
+    "C:\\Users\\eben2\\.nuget\\packages\\sfml.net\\2.6.0\\sfml.net.2.6.0.nupkg.sha512",
+    "C:\\Users\\eben2\\.nuget\\packages\\sfml.system\\2.6.0\\sfml.system.2.6.0.nupkg.sha512",
+    "C:\\Users\\eben2\\.nuget\\packages\\sfml.window\\2.6.0\\sfml.window.2.6.0.nupkg.sha512"
+  ],
   "logs": []
 }

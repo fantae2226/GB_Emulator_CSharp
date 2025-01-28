@@ -5,21 +5,11 @@ namespace GB_Emulator_CSharp.interfaces{
         public ulong Ticks {get; set;}
     }
 
-    public class Emulator{
-        private static Emu_context emu_Context = new Emu_context();
+    public interface IEmulator{
+    
 
-        public static int EmuRun(string[] args){
+        public int EmuRun(int argc, string[] argv);
 
-            //placeholder
-            Console.WriteLine("Runnign Emulator");
-
-            emu_Context.Running = true;
-
-            return 0;
-        }
-
-        public static Emu_context EmuGetContext(){
-            return emu_Context;
-        }
+        public Emu_context EmuGetContext();
     }
 }

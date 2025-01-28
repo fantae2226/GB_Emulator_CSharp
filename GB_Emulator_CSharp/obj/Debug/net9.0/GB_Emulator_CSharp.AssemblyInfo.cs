@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GB_Emulator_CSharp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df2f6a47eea0277eb63b3f2bde258326c2b65265")]
 [assembly: System.Reflection.AssemblyProductAttribute("GB_Emulator_CSharp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GB_Emulator_CSharp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
